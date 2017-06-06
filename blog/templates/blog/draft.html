@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Drafts {% endblock %}
+
+{% block body %}
+
+{% include 'blog/nav_bar.html' %}
+<div class="jumbotron" style="background-image: url('/media/{{ post.img }}')">
+    <div class="container" style="height :500px;">
+{% if post != None %}
+  <h1 style="margin-top:200px;color:white;">{{ post.title  }}</h1>
+
+
+</div>
+    </div>
+<h4 class="para">
+ {{ post.content }}
+    <br>
+    <br>
+    Created by {{ post.user }} date:{{ post.date }}
+</h4>
+
+    <button><a href="blog/editpost/{{ post.id }}"> EDIT POST</a></button>
+<button><a href="blog/deletepost/{{ post.id }}"> Delete POST</a></button>
+{% else %}
+    <h1 style="margin-top:200px;color:;">No drafts created.</h1>
+{% endif %}
+{% endblock %}

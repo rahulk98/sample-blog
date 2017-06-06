@@ -1,0 +1,40 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'blog/css/newpost.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'blog/css/comment.css' %}" type="text/css">
+
+{% endblock %}
+{% block title %}Edit Post{% endblock %}
+
+{% block body %}
+    {% include 'blog/nav_bar.html' %}
+    <h1 style="color: white;margin-top:100px">Add new post</h1>
+<div id="div1">
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+      <div class="form-group">
+          <input type="text" name="post_title" required class="form-control" placeholder="Enter title" value="{{ post.title }}">
+				</div>
+
+				<div class="form-group">
+                    <textarea type="text" name="post_content" rows="20" cols="100" required class="form-control" placeholder="Enter content" size="50"  >{{ post.content }}</textarea>
+				</div>
+                <div class="form-group">
+                    {% if post.img %}
+                    <p>Image:{{ post.img }}</p>
+                    {% endif %}
+                    <input type="file" alt="Submit" name ="image" width="100" value="{{ post.img }}">
+                    <label for="image" style="color: white">Select image to upload</label>
+                </div>
+                <div class="form-group">
+                     <input type="checkbox" name="is_published" value="True" ><br>
+                    <label for="is_published" style="color: white">is published</label>
+                </div>
+				<button type="submit" name="go" class="btn btn-primary btn-block" style="width:25%;">Submit</button>
+    </form>
+</div>
+    <br>
+    <br>
+
+{% endblock %}

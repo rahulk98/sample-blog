@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.views import generic
@@ -19,11 +21,19 @@ def home(request):
     return render(request, template_name, context)
 
 def post_detail(request, postno):
-    p = Post.objects.get(id=postno)
-    c = Comment.objects.filter(post=p)
-    template_name = "blog/post1.html"
-    context = {"post": p, "comm": c}
-    return render(request, template_name, context)
+    if request.method =="POST":
+        comment = request.POST['comment']
+        user = User.objects.get(username=request.user.username)
+        c = Comment(comment_text=comment, post_id=postno,user=user)
+
+        c.save()
+        return redirect("post", postno)
+    else:
+        p = Post.objects.get(id=postno)
+        c = Comment.objects.filter(post=p)
+        template_name = "blog/post1.html"
+        context = {"post": p, "comm": c}
+        return render(request, template_name, context)
 
 
 def login_page(request):
@@ -35,3 +45,64 @@ def login_page(request):
         user_name = str(request.POST['username'])
         passwd = str(request.POST['password'])
         return HttpResponse()
+def new_post(request):
+    if request.method == "POST":
+        title = request.POST['post_title']
+        content = request.POST['post_content']
+        img = request.FILES['image']
+        is_published = "False"
+        if 'is_published' in request.POST:
+            is_published = request.POST['is_published']
+        user = User.objects.get(username=request.user.username)
+        newp = Post(user=user,title=title, content=content, img=img, is_published=is_published)
+        newp.save()
+        return redirect('post',newp.id)
+    else:
+        template_name = 'blog/newpost.html'
+        context ={}
+        return render(request, template_name, context)
+
+def edit_post(request, pk):
+    post = Post.objects.get(id=int(pk))
+    if request.user.username != post.user.username:
+        raise PermissionDenied
+    if request.method == "GET":
+        template_name = 'blog/post_edit.html'
+        context = {'post': post}
+        return render(request,template_name, context)
+    else:
+        post.title = request.POST['post_title']
+        post.content = request.POST['post_content']
+        if 'img' in request.POST:
+            post.img = request.FILES['image']
+        if 'is_published' in request.POST:
+            post.is_published = request.POST['is_published']
+        post.save()
+        return redirect('post',post.id)
+
+
+def del_post(request, pk):
+    post = Post.objects.get(id=int(pk))
+    if request.user.username != post.user.username:
+        raise PermissionDenied
+    if post != None:
+        p = post.id
+        post.delete()
+        return HttpResponse("You have deleted  post " +str(p))
+    else:
+        return HttpResponse("This post does not exist")
+
+def del_com(request, postno, comno):
+    post = Post.objects.get(id=int(postno))
+    if request.user.username != post.user.username:
+        raise PermissionDenied
+    com = Comment.objects.get(id=int(comno))
+    com.delete()
+    return redirect('post',post.id)
+
+
+def view_drafts(request):
+    post = Post.objects.filter(is_published=False)
+    context = {"post" : post}
+    template = 'blog/draft.html'
+    return render(request, template)
