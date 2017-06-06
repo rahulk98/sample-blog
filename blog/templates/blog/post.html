@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>post</title>
+</head>
+<body>
+<h1 style="text-align:center">{{ post.title  }}</h1>
+<img height= "300px" style="margin-left:499px" src="/media/{{ post.img }}" />
+<p>{{ post.content }}</p>
+<h5>Posted by {{ post.user }} date:{{ post.date }}</h5>
+
+<br>
+<br>
+<h2>Comments</h2>
+{% for i in comm %}
+<h3>{{ i.date }}</h3><h3>by {{ i.user }}</h3>
+<p>{{ i.comment_text }}</p>
+{% endfor %}
+</body>
+</html>

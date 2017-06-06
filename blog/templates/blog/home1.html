@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+     <link rel="stylesheet" href="{% static 'blog/css/a.css'%}" type="text/css">
+    <link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+      <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+<body>
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/blog" style="color:#420505;">Blog</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/blog" style="color:#420505;">Home</a></li>
+      <li><a href="form.html" style="color:#420505;">Login</a></li>
+      <li><a href="index.html" style="color:#420505;">About</a></li>
+    </ul>
+  </div>
+</nav>
+<form class="navbar-form navbar-right" role="search">
+    <div class="form-group">
+        <input type="text" class="form-control" placeholder="Search">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+<div class="jumbotron" style="background-image: url('{% static  "blog/images/index.jpg" %}') ">
+    <div class="container" style="height :500px;">
+
+  <h1 style="margin-top:200px;color:white">Hello, world!</h1>
+  <p style="color:white;">Sample test blog</p>
+</div>
+    </div>
+{% for post in object_list %}
+<hr>
+                <div class="post-preview" style="text-align:center">
+                    <a href="{{ post.id }}">
+                        <img src="/media/{{ post.img }}" height="200px" width="300px">
+                        <h2 class="post-title">
+                            {{ post.title }}</h2>
+                        <h6 class="post-subtitle">
+                            {{ post.content }}
+                        </h6>
+
+
+                    </a>
+                </div>
+                <hr>
+
+<hr>
+{% endfor %}
+<a href="https://www.facebook.com" class="fa fa-facebook"></a>
+<a href="https://www.google.com" class="fa fa-google"></a>
+<a href="https://www.instagram.com" class="fa fa-instagram"></a>
+<h5>Copyright © rahulk</h5>
+</body>
+</html>
