@@ -1,8 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block title %}Login {% endblock %}
+{% block body %}
 <div id="div1">
 
     <div id="div2">
         <form method="post" action="" role="login">
-				<img src="logo.png" alt="" class="img-responsive" />
+            {% csrf_token %}
+				<img src="blog/images/logo.png" alt="" class="img-responsive" />
 <br>
 				<div class="form-group">
 					<input type="username" name="username" required class="form-control" placeholder="Enter username" />
@@ -17,3 +21,5 @@
 			</form>
     </div>
  </div>
+
+{% endblock %}

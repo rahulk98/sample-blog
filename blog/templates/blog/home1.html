@@ -1,4 +1,11 @@
 
+{%  extends 'blog/base.html' %}
+{% block title %}Home {% endblock %}
+
+{% block body %}
+
+
+{% include 'blog/nav_bar.html' %}
 <div class="jumbotron" style="background-image: url('{% static  "blog/images/index.jpg" %}') ">
     <div class="container" style="height :500px;">
 
@@ -28,3 +35,4 @@
 <a href="https://www.google.com" class="fa fa-google"></a>
 <a href="https://www.instagram.com" class="fa fa-instagram"></a>
 <h5>Copyright © rahulk</h5>
+{% endblock %}
