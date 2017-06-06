@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -23,3 +24,14 @@ def post_detail(request, postno):
     template_name = "blog/post1.html"
     context = {"post": p, "comm": c}
     return render(request, template_name, context)
+
+
+def login_page(request):
+    if request.method == 'GET':
+        template = "blog/login.html"
+        return render(request, template)
+
+    elif request.method =="POST":
+        user_name = str(request.POST['username'])
+        passwd = str(request.POST['password'])
+        return HttpResponse()

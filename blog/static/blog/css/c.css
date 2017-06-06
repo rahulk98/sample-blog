@@ -1,0 +1,16 @@
+#div1{
+
+
+margin:0 auto;
+height:300px;
+width:300px;
+margin-top:250px;
+}
+#div2{
+margin-left:80px;
+margin-top:20px;
+}
+body
+{
+background-image:url("bg.jpg")
+}
