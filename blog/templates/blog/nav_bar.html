@@ -12,14 +12,17 @@
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/blog" style="color:#ffffff;">Home</a></li>
-      <li><a href="login/" style="color:#ffffff;">Login</a></li>
+      <li><a href="/accounts/login" style="color:#ffffff;">Login</a></li>
             <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ffffff" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user.username }}<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/blog/newpost">New Post</a></li>
             <li><a href="/blog/drafts/">Drafts</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#">My profile</a></li>
+              <li><a href="/accounts/profile">My profile</a></li>
+              {% if request.user.username != None %}
+            <li><a href="/accounts/logout">logout</a></li>
+              {% endif %}
           </ul>
         </li>
       </ul>

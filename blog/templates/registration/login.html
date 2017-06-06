@@ -29,7 +29,12 @@
 
 				<button type="submit" name="go" class="btn btn-primary btn-block">Login Now</button>
             <a href="/blog/login/createacc">	<button type="button" name="go" class="btn btn-primary btn-block">Create an account</button></a>
+            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 			</form>
     </div>
  </div>
+
+    {% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
 {% endblock %}

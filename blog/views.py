@@ -25,7 +25,6 @@ def post_detail(request, postno):
         comment = request.POST['comment']
         user = User.objects.get(username=request.user.username)
         c = Comment(comment_text=comment, post_id=postno,user=user)
-
         c.save()
         return redirect("post", postno)
     else:
@@ -106,3 +105,19 @@ def view_drafts(request):
     context = {"post" : post}
     template = 'blog/draft.html'
     return render(request, template)
+
+def comm_edit(request, postno, comno):
+    post = Post.objects.get(id=postno)
+    c = Comment.objects.get(id=comno)
+    if request.user.username != post.user.username:
+        raise PermissionDenied
+    if request.method == "GET":
+        template = 'blog/editcom.html'
+        context = {"comment": c, "post": post}
+        return render(request, template, context)
+    else:
+        comm = request.POST['comment']
+        user = User.objects.get(username=request.user.username)
+        com = Comment(id=comno, comment_text=comm, user=user,post_id=postno)
+        com.save()
+        return redirect('post', postno)
