@@ -1,12 +1,23 @@
 {% extends 'blog/base.html' %}
+{% load static %}
+{% block css  %}
+  <link rel="stylesheet" href="{% static 'blog/css/c.css' %}" type="text/css">
+{% endblock %}
 {% block title %}Login {% endblock %}
+
 {% block body %}
+
+    {% include 'blog/nav_bar.html' %}
+
 <div id="div1">
 
     <div id="div2">
+
+   <img src="{% static 'blog/images/logo.png' %}" alt="" class="img-responsive" height="300px" />
+
         <form method="post" action="" role="login">
             {% csrf_token %}
-				<img src="blog/images/logo.png" alt="" class="img-responsive" />
+
 <br>
 				<div class="form-group">
 					<input type="username" name="username" required class="form-control" placeholder="Enter username" />
@@ -17,9 +28,8 @@
 				</div>
 
 				<button type="submit" name="go" class="btn btn-primary btn-block">Login Now</button>
-            <a href="blog/login/createacc">	<button type="button" name="go" class="btn btn-primary btn-block">Create an account</button></a>
+            <a href="/blog/login/createacc">	<button type="button" name="go" class="btn btn-primary btn-block">Create an account</button></a>
 			</form>
     </div>
  </div>
-
 {% endblock %}

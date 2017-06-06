@@ -1,13 +1,16 @@
 
 {%  extends 'blog/base.html' %}
+{% load static %}
 {% block title %}Home {% endblock %}
-
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
 {% block body %}
 
 
 {% include 'blog/nav_bar.html' %}
 <div class="jumbotron" style="background-image: url('{% static  "blog/images/index.jpg" %}') ">
-    <div class="container" style="height :500px;">
+    <div class="container" style="height :500px">
 
   <h1 style="margin-top:200px;color:white">Hello, world!</h1>
   <p style="color:white;">Sample test blog</p>
@@ -35,4 +38,6 @@
 <a href="https://www.google.com" class="fa fa-google"></a>
 <a href="https://www.instagram.com" class="fa fa-instagram"></a>
 <h5>Copyright © rahulk</h5>
+
+
 {% endblock %}
