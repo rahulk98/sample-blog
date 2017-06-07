@@ -133,7 +133,6 @@ def create_acc(request):
             return HttpResponseRedirect('/accounts/login')
     form = RegistrationForm()
     context = {'form': form}
-    print context
     template_name = 'registration/create_Acc.html'
     return render(request, template_name, context)
 
