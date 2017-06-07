@@ -3,12 +3,14 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, render_to_response
 
 # Create your views here.
+from django.template import RequestContext
 from django.views import generic
 
+from blog.forms import RegistrationForm
 from blog.models import Post, Comment
 
 
@@ -87,7 +89,7 @@ def del_post(request, pk):
     if post != None:
         p = post.id
         post.delete()
-        return HttpResponse("You have deleted  post " +str(p))
+        return redirect('home')
     else:
         return HttpResponse("This post does not exist")
 
@@ -121,3 +123,19 @@ def comm_edit(request, postno, comno):
         com = Comment(id=comno, comment_text=comm, user=user,post_id=postno)
         com.save()
         return redirect('post', postno)
+
+def create_acc(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(username=form.cleaned_data['username'],
+                                            password=form.cleaned_data['password1'], email=form.cleaned_data['email'])
+            return HttpResponseRedirect('/accounts/login')
+    form = RegistrationForm()
+    context = {'form': form}
+    print context
+    template_name = 'registration/create_Acc.html'
+    return render(request, template_name, context)
+
+def base_page(request):
+    return redirect('home')

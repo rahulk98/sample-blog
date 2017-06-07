@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Sign up form {% endblock %}
+{% block css %}
+        <link rel="stylesheet" href="{% static 'blog/css/normalize.css' %}">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+       {% endblock %}
+
+  {% block body %}
+  {% include 'blog/nav_bar.html' %}
+      <br>
+      <br>
+      <br>
+      <br>
+      <form method="post" action="">
+{{ form.as_p }}
+<input type="submit" value="register" />
+{% csrf_token %}
+</form>
+
+
+{% endblock %}
