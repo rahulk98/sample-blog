@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from blog.views import home, post_detail, login_page, new_post, edit_post, del_post, del_com, view_drafts, comm_edit, \
-    create_acc
+    create_acc, my_profile
 
 urlpatterns = [
     url(r'^$', home, name="home"),
@@ -14,5 +14,7 @@ urlpatterns = [
     url(r'^(?P<postno>[0-9]+)/delcom/(?P<comno>[0-9]+)',del_com),
     url(r'^drafts/', view_drafts),
     url(r'^createacc/',create_acc),
+    url(r'^myprofile/',my_profile),
+
 
 ]

@@ -128,7 +128,7 @@ def create_acc(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = User.objects.create_user(username=form.cleaned_data['username'],
+            user = User.objects.create_user(first_name=form.cleaned_data['firstname'], last_name=form.cleaned_data['lastname'], username=form.cleaned_data['username'],
                                             password=form.cleaned_data['password1'], email=form.cleaned_data['email'])
             return HttpResponseRedirect('/accounts/login')
     form = RegistrationForm()
@@ -139,3 +139,9 @@ def create_acc(request):
 
 def base_page(request):
     return redirect('home')
+
+def my_profile(request):
+    user = User.objects.get(username=request.user.username)
+    context = {"user": user}
+    template = 'blog/myprof.html'
+    return render(request, template)

@@ -5,6 +5,8 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class RegistrationForm(forms.Form):
+    firstname = forms.CharField(label='firstname', max_length=30)
+    lastname = forms.CharField(label='lastname', max_length=30)
     username = forms.CharField(label='Username', max_length=30)
     email = forms.EmailField(label='Email')
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput())
